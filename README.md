@@ -46,10 +46,10 @@ Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut.
 
 1.  **Kloning Repository**
     ```bash
-    git clone https://github.com/naufaliksham/sp_fs_NaufalIksham.git
+    git clone https://github.com/naufaliksham/sp_fs_Naufal_Iksham.git
     ```
     ```
-    cd sp_fs_NaufalIksham
+    cd sp_fs_Naufal_Iksham
     ```
 
 2.  **Instal Dependensi**

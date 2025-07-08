@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,7 +20,6 @@ interface AddTaskDialogProps {
 }
 
 export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -47,7 +45,7 @@ export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
       setTitle("");
       setDescription("");
       setOpen(false);
-      
+
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

@@ -70,7 +70,7 @@ export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
           <DialogHeader>
             <DialogTitle>Tambah Tugas Baru</DialogTitle>
             <DialogDescription>
-              Isi detail Tugas di bawah ini. Status default akan menjadi 'To Do'.
+              Isi detail Tugas di bawah ini. Status default akan menjadi To Do.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Download } from 'lucide-react';
 import Link from "next/link";
 
-async function getProjectSettingsData(projectId: string, userId: string) {
+async function getProjectSettingsData(projectId: string) {
   const project = await prisma.project.findUnique({
     where: { id: projectId },
     include: {
@@ -29,7 +29,7 @@ export default async function ProjectSettingsPage({ params }: { params: { id: st
   const { user: sessionUser } = await getAuthenticatedSession();
   if (!sessionUser) redirect('/login');
 
-  const project = await getProjectSettingsData(params.id, sessionUser.id);
+  const project = await getProjectSettingsData(params.id);
   if (!project) redirect('/dashboard');
 
   const isOwner = project.ownerId === sessionUser.id;

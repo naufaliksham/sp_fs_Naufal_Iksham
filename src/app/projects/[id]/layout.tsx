@@ -28,7 +28,7 @@ export default async function ProjectLayout({
   if (!project) redirect("/dashboard");
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto p-8">
       <div className="mb-4">
         <div>
           <p className="text-sm text-gray-500">Proyek</p>

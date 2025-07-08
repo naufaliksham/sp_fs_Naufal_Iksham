@@ -43,10 +43,7 @@ export async function PUT(
     try {
       const channel = `project-${updatedTask.projectId}`;
       const event = 'task:update';
-      
       await pusherServer.trigger(channel, event, updatedTask);
-      console.log(`[PUSHER] Event '${event}' terkirim ke channel '${channel}'`);
-      
     } catch (e) {
       console.error("[PUSHER] Gagal mengirim event:", e);
     }
@@ -59,8 +56,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-
-    { params }: { params: { taskId: string } }
+  request: Request,
+  { params }: { params: { taskId: string } }
 ) {
   const { user, response } = await getAuthenticatedSession();
   if (!user) return response;

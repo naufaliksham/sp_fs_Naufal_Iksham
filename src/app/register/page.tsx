@@ -39,8 +39,12 @@ export default function RegisterPage() {
         const data = await res.json();
         setError(data.message || "Gagal membuat akun.");
       }
-    } catch (err) {
-      setError("Terjadi kesalahan. Coba lagi nanti.");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Terjadi kesalahan. Coba lagi nanti.");
+      }
     } finally {
       setIsLoading(false);
     }

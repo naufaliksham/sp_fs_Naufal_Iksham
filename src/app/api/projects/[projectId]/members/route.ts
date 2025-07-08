@@ -1,5 +1,3 @@
-// src/app/api/projects/[projectId]/members/route.ts
-
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getAuthenticatedSession } from "@/lib/session";

@@ -49,8 +49,12 @@ export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
       setOpen(false);
 
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Terjadi kesalahan. Silakan coba lagi.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +70,7 @@ export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
           <DialogHeader>
             <DialogTitle>Tambah Tugas Baru</DialogTitle>
             <DialogDescription>
-              Isi detail Tugas di bawah ini. Status default akan menjadi "To Do".
+              Isi detail Tugas di bawah ini. Status default akan menjadi 'To Do'.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

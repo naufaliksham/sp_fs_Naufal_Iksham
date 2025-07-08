@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getAuthenticatedSession } from "@/lib/session";
+import { Prisma } from "@prisma/client";
 
 export async function GET(
   request: Request,
@@ -16,7 +17,7 @@ export async function GET(
   const query = searchParams.get("q");
 
   try {
-    const whereCondition: any = { id: { not: currentUser.id } };
+    const whereCondition: Prisma.UserWhereInput = { id: { not: currentUser.id } };
 
     if (typeof query === "string" && query.length > 0) {
       whereCondition.email = {

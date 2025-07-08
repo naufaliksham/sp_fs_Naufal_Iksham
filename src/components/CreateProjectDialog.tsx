@@ -1,4 +1,3 @@
-// src/components/CreateProjectDialog.tsx
 "use client";
 
 import { useState } from "react";
@@ -34,7 +33,7 @@ export function CreateProjectDialog() {
 
     setIsLoading(false);
     setOpen(false);
-    router.refresh(); // Memuat ulang data di halaman server
+    router.refresh();
   };
 
   return (

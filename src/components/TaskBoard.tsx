@@ -1,4 +1,3 @@
-// src/components/TaskBoard.tsx
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
@@ -23,22 +22,18 @@ export default function TaskBoard({ initialTasks }: TaskBoardProps) {
     };
   }, [tasks]);
 
-  // Efek untuk koneksi ke Pusher
   useEffect(() => {
     const projectId = initialTasks[0]?.projectId;
     if (!projectId) return;
 
-    // Inisialisasi Pusher client
     const pusher = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
     });
 
-    // Subscribe ke channel proyek
     const channelName = `project-${projectId}`;
     const channel = pusher.subscribe(channelName);
     console.log(`[PUSHER] Berlangganan ke channel: ${channelName}`);
 
-    // Bind ke event 'task:update'
     channel.bind("task:update", (updatedTask: FullTask) => {
       console.log("[PUSHER] Menerima event 'task:update'", updatedTask);
       setTasks(prevTasks =>
@@ -46,7 +41,6 @@ export default function TaskBoard({ initialTasks }: TaskBoardProps) {
       );
     });
 
-    // Cleanup saat komponen unmount
     return () => {
       console.log(`[PUSHER] Berhenti langganan dari channel: ${channelName}`);
       pusher.unsubscribe(channelName);
@@ -61,12 +55,10 @@ export default function TaskBoard({ initialTasks }: TaskBoardProps) {
     const newStatus = destination.droppableId as TaskStatus;
     const originalTasks = [...tasks];
 
-    // Update UI lokal secara optimis untuk pengguna yang melakukan aksi
     setTasks(prev => prev.map(t =>
       t.id === draggableId ? { ...t, status: newStatus, updatedAt: new Date() } : t
     ));
 
-    // Kirim perubahan ke API. API akan memicu Pusher untuk klien lain.
     const res = await fetch(`/api/tasks/${draggableId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -74,7 +66,7 @@ export default function TaskBoard({ initialTasks }: TaskBoardProps) {
     });
 
     if (!res.ok) {
-      setTasks(originalTasks); // Kembalikan jika gagal
+      setTasks(originalTasks);
     }
   };
 

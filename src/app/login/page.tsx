@@ -40,8 +40,12 @@ export default function LoginPage() {
       } else {
         router.replace("/dashboard");
       }
-    } catch (err) {
-      setError("Terjadi kesalahan. Coba lagi nanti.");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Terjadi kesalahan. Coba lagi nanti.");
+      }
       setIsLoading(false);
     }
   };

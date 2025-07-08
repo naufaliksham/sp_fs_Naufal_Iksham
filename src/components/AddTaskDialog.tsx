@@ -47,8 +47,7 @@ export function AddTaskDialog({ projectId }: AddTaskDialogProps) {
       setTitle("");
       setDescription("");
       setOpen(false);
-
-      router.refresh();
+      
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

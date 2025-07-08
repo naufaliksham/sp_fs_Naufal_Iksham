@@ -34,16 +34,24 @@ export default function TaskBoard({ initialTasks }: TaskBoardProps) {
     const channel = pusher.subscribe(channelName);
     console.log(`[PUSHER] Berlangganan ke channel: ${channelName}`);
 
-    channel.bind("task:update", (updatedTask: FullTask) => {
-      console.log("[PUSHER] Menerima event 'task:update'", updatedTask);
+    const handleTaskUpdate = (updatedTask: FullTask) => {
       setTasks(prevTasks =>
         prevTasks.map(task => (task.id === updatedTask.id ? updatedTask : task))
       );
-    });
+    };
+    channel.bind("task:update", handleTaskUpdate);
+
+    const handleTaskCreate = (newTask: FullTask) => {
+      console.log("[PUSHER] Menerima event 'task:create'", newTask);
+      setTasks(prevTasks => [newTask, ...prevTasks]);
+    };
+    channel.bind("task:create", handleTaskCreate);
 
     return () => {
       console.log(`[PUSHER] Berhenti langganan dari channel: ${channelName}`);
       pusher.unsubscribe(channelName);
+      channel.unbind("task:update", handleTaskUpdate);
+      channel.unbind("task:create", handleTaskCreate);
       pusher.disconnect();
     };
   }, [initialTasks]);

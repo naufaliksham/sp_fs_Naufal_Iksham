@@ -6,7 +6,7 @@ import { Task, TaskStatus } from "@prisma/client";
 import TaskCard from "./TaskCard";
 import PusherClient from "pusher-js";
 
-type FullTask = Task & { assignee: { email: string | null } | null };
+type FullTask = Task & { assignee: { email: string; } | null };
 type TaskColumns = { [key in TaskStatus]: FullTask[] };
 interface TaskBoardProps { initialTasks: FullTask[] }
 
